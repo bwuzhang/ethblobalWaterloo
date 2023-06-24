@@ -42,10 +42,10 @@ const router = createBrowserRouter([
         path: "/my-quests",
         element: <MyQuests />,
       },
-      // {
-      //   path: "/my-quests",
-      //   element: <MyQuestInvitations />,
-      // },
+      {
+        path: "/incoming-invitations",
+        element: <MyQuestInvitations />,
+      },
     ],
   },
 ]);

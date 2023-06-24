@@ -1,27 +1,26 @@
 import React from 'react';
 import QuestInvitation from '../QuestInvitation/QuestInvitation';
 
-interface QuestInvitationData {
+export interface QuestInvitationData {
   id: number;
-  owner: string;
-  title: string;
-  bounty: number;
-  deadline: Date;
-  currentHelpers: number;
-  maxHelpers: number;
-  
+  questId: number;
+  questTitle: string;
+  joiner: string;
+  donationAmount: number;
+  onAccept: () => void;
+  onReject: () => void;
 }
 
 interface QuestInvitationsProps {
-  quests: QuestInvitationData[];
+  questInvitations: QuestInvitationData[];
 }
 
-const QuestInvitations: React.FC<QuestInvitationsProps> = ({ quests }) => {
+const QuestInvitations: React.FC<QuestInvitationsProps> = ({ questInvitations }) => {
   return (
     <div className="quests">
-      {/* {quests.map((quest) => (
-        <QuestInvitation key={quest.id} {...quest} />
-      ))} */}
+      {questInvitations.map((questInvitation) => (
+        <QuestInvitation key={questInvitation.id} {...questInvitation} />
+      ))}
     </div>
   );
 };

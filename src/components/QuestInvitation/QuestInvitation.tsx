@@ -3,7 +3,7 @@ import './QuestInvitation.css';
 
 interface QuestInvitationProps {
   questTitle: string;
-  joinerName: string;
+  joiner: string;
   donationAmount: number;
   onAccept: () => void;
   onReject: () => void;
@@ -11,7 +11,7 @@ interface QuestInvitationProps {
 
 const QuestInvitation: React.FC<QuestInvitationProps> = ({
   questTitle,
-  joinerName,
+  joiner,
   donationAmount,
   onAccept,
   onReject,
@@ -20,7 +20,7 @@ const QuestInvitation: React.FC<QuestInvitationProps> = ({
     <div className="quest-invitation">
       <div className="quest-row">
         <div className="quest-column">{questTitle}</div>
-        <div className="quest-column">{joinerName}</div>
+        <div className="quest-column">{joiner}</div>
         <div className="quest-column">{donationAmount} ETH</div>
         <div className="quest-column">
           <button onClick={onAccept}>Accept</button>

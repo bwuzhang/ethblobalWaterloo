@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './QuestInvitationRequest.css';
 
-interface InvitationRequestModalProps {
+interface QuestInvitationRequestProps {
   onRequestSubmit: (amount: number) => void;
   onRequestClose: () => void;
 }
 
-const InvitationRequestModal: React.FC<InvitationRequestModalProps> = ({
+const QuestInvitationRequest: React.FC<QuestInvitationRequestProps> = ({
   onRequestSubmit,
   onRequestClose,
 }) => {
@@ -20,19 +20,25 @@ const InvitationRequestModal: React.FC<InvitationRequestModalProps> = ({
     onRequestSubmit(amount);
   };
 
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
-    <div className="modal">
-      <h2>Request to Join Quest</h2>
-      <div className="form-row">
-        <label htmlFor="amount">Additional Amount:</label>
-        <input type="number" id="amount" value={amount} onChange={handleAmountChange} />
-      </div>
-      <div className="buttons">
-        <button onClick={handleSubmit}>Submit</button>
-        <button onClick={onRequestClose}>Cancel</button>
+    <div className="modal-overlay" onClick={onRequestClose}>
+      <div className="modal" onClick={handleModalClick}>
+        <h2>Request to Join Quest</h2>
+        <div className="form-row">
+          <label htmlFor="amount">Your Contribution:</label>
+          <input type="number" id="amount" value={amount} onChange={handleAmountChange} />
+        </div>
+        <div className="buttons">
+          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={onRequestClose}>Cancel</button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default InvitationRequestModal;
+export default QuestInvitationRequest;

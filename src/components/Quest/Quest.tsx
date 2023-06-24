@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import QuestInvitationRequest from '../QuestInvitationRequest/QuestInvitationRequest';
 import './Quest.css';
 
 interface QuestProps {
@@ -8,6 +9,7 @@ interface QuestProps {
   deadline: Date;
   currentHelpers: number;
   maxHelpers: number;
+  canSendInvitation?: boolean;
 }
 
 const Quest: React.FC<QuestProps> = ({
@@ -17,7 +19,25 @@ const Quest: React.FC<QuestProps> = ({
   deadline,
   currentHelpers,
   maxHelpers,
+  canSendInvitation = false,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleInvitationSubmit = (amount: number) => {
+    // Handle the invitation request submit logic
+    // e.g., send the invitation request to the server
+    console.log('Invitation Request:', amount);
+    setShowModal(false);
+  };
+
   return (
     <div className="quest">
       <div className="quest-row">
@@ -33,6 +53,15 @@ const Quest: React.FC<QuestProps> = ({
           <p>
             {currentHelpers} / {maxHelpers}
           </p>
+          {canSendInvitation && (
+            <button onClick={handleOpenModal}>Send Invitation</button>
+          )}
+          {showModal && (
+            <QuestInvitationRequest
+              onRequestSubmit={handleInvitationSubmit}
+              onRequestClose={handleCloseModal}
+            />
+          )}
         </div>
       </div>
     </div>
