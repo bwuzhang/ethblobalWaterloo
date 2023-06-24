@@ -4,6 +4,10 @@ import Home from "./Home";
 import { Root } from "./Root";
 import Qr from "./Qr";
 import Connections from "./Connections";
+import CreateQuest from "./components/CreateQuest/CreateQuest";
+import AllQuests from "./components/Quests/AllQuests";
+import MyQuests from "./components/Quests/MyQuests";
+import MyQuestInvitations from "./components/QuestInvitations/MyQuestInvitations";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,26 @@ const router = createBrowserRouter([
         path: "/connections",
         element: <Connections />,
       },
+      {
+        path: "/new-quest",
+        element: <CreateQuest />,
+      },
+      {
+        path: "/quests",
+        element: <AllQuests />,
+      },
+      {
+        path: "/all-quests",
+        element: <AllQuests />,
+      },
+      {
+        path: "/my-quests",
+        element: <MyQuests />,
+      },
+      // {
+      //   path: "/my-quests",
+      //   element: <MyQuestInvitations />,
+      // },
     ],
   },
 ]);

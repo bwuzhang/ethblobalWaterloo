@@ -2,13 +2,14 @@ import { ConnectKitButton } from "connectkit";
 import styled from "styled-components";
 import { ButtonBase } from "../../styles/buttons";
 import { theme } from "../../utils/theme";
+import React from "react";
 
 const StyledButton = styled.button`
   ${ButtonBase};
 
   min-width: 150px;
   background-color: ${theme.neutrals["cool-grey-050"]};
-  border: 1px solid ${theme.neutrals["cool-grey-100"]}
+  border: 1px solid ${theme.neutrals["cool-grey-100"]};
   padding: 10px 25px;
 
   transition: 200ms ease;

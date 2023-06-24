@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { Identicon } from "./components/Identicon";
 import { ResolvedAttestation } from "./utils/types";
 import { timeFormatString } from "./utils/utils";
+import React from "react";
 
 const Container = styled.div`
   border-radius: 25px;

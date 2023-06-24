@@ -1,5 +1,6 @@
 import * as jdenticon from "jdenticon";
 import styled from "styled-components";
+import React from "react";
 
 type ContainerProps = {
   size: number;

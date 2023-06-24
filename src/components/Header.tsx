@@ -6,6 +6,7 @@ import { activeChainConfig } from "../utils/utils";
 import invariant from "tiny-invariant";
 import { useAccount } from "wagmi";
 import { FaQrcode } from "react-icons/fa";
+import React from "react";
 
 const Outer = styled.div`
   font-family: "Nunito", sans-serif;

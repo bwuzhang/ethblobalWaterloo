@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -66,6 +66,7 @@ export async function getAddressForENS(name: string) {
     `https://eth-mainnet.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`,
     "mainnet"
   );
+  console.log('debug ens error', provider, name);
   return await provider.resolveName(name);
 }
 
@@ -74,8 +75,15 @@ export async function getENSName(address: string) {
     `https://eth-mainnet.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`,
     "mainnet"
   );
+  console.log('debug ens error', provider, address);
   return await provider.lookupAddress(address);
 }
+
+const config: AxiosRequestConfig<any> = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
 export async function getAttestation(uid: string): Promise<Attestation | null> {
   const response = await axios.post<AttestationResult>(
@@ -89,11 +97,7 @@ export async function getAttestation(uid: string): Promise<Attestation | null> {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestation;
@@ -125,39 +129,31 @@ export async function getAttestationsForAddress(address: string) {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestations;
 }
 
 export async function getENSNames(addresses: string[]) {
-  const response = await axios.post<EnsNamesResult>(
-    "https://sepolia.easscan.org/graphql",
-    {
-      query:
-        "query Query($where: EnsNameWhereInput) {\n  ensNames(where: $where) {\n    id\n    name\n  }\n}",
-      variables: {
-        where: {
-          id: {
-            in: addresses,
-            mode: "insensitive",
-          },
-        },
-      },
-    },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
-  );
+  // const response = await axios.post<EnsNamesResult>(
+  //   "https://sepolia.easscan.org/graphql",
+  //   {
+  //     query:
+  //       "query Query($where: EnsNameWhereInput) {\n  ensNames(where: $where) {\n    id\n    name\n  }\n}",
+  //     variables: {
+  //       where: {
+  //         id: {
+  //           in: addresses,
+  //           mode: "insensitive",
+  //         },
+  //       },
+  //     },
+  //   },
+  //   config
+  // );
 
-  return response.data.data.ensNames;
+  // return response.data.data.ensNames;
 }
 
 export async function getAttestationsForSchema() {
@@ -174,11 +170,7 @@ export async function getAttestationsForSchema() {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestations;

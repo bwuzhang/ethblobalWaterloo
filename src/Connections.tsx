@@ -10,6 +10,7 @@ import {
   getAttestationsForSchema,
   getENSNames,
 } from "./utils/utils";
+import React from "react";
 
 const Container = styled.div`
   @media (max-width: 700px) {
@@ -61,14 +62,15 @@ function Home() {
 
       const addresses = new Set<string>();
 
-      tmpAttestations.forEach((att) => {
+      tmpAttestations.forEach((att: { attester: string; recipient: string; }) => {
         addresses.add(att.attester);
         addresses.add(att.recipient);
       });
 
       let resolvedAttestations: ResolvedAttestation[] = [];
-
-      const ensNames = await getENSNames(Array.from(addresses));
+      console.log('fetching ENS names from connections.tsx', addresses);
+      // const ensNames = await getENSNames(Array.from(addresses));
+      const ensNames: any[] = [];
       console.log(tmpAttestations);
       tmpAttestations.forEach((att) => {
         if (att.attester.toLowerCase() === address.toLocaleLowerCase()) {
@@ -76,7 +78,7 @@ function Home() {
             ...att,
             name:
               ensNames.find(
-                (name) => name.id.toLowerCase() === att.recipient.toLowerCase()
+                (name: { id: string; }) => name.id.toLowerCase() === att.recipient.toLowerCase()
               )?.name || att.recipient,
           });
         } else {
@@ -84,7 +86,7 @@ function Home() {
             ...att,
             name:
               ensNames.find(
-                (name) => name.id.toLowerCase() === att.attester.toLowerCase()
+                (name: { id: string; }) => name.id.toLowerCase() === att.attester.toLowerCase()
               )?.name || att.attester,
           });
         }
