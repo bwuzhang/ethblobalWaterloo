@@ -159,3 +159,27 @@ export async function getENSNames(addresses: string[]) {
 
   return response.data.data.ensNames;
 }
+
+export async function getAttestationsForSchema() {
+  const response = await axios.post<MyAttestationResult>(
+    "https://sepolia.easscan.org/graphql",
+    {
+      query:
+        "query Attestations($where: AttestationWhereInput) {\n  attestations(where: $where) {\n    attester\n    revocationTime\n    expirationTime\n    time\n    recipient\n    id\n    data\n decodedDataJson\n refUID\n }\n}",
+      variables: {
+        where: {
+          schemaId: {
+            equals: CUSTOM_SCHEMAS.MET_IRL_SCHEMA,
+          },
+        },
+      },
+    },
+    {
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  return response.data.data.attestations;
+}

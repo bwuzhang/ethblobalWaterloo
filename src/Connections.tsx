@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { EAS } from "@ethereum-attestation-service/eas-sdk";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import GradientBar from "./components/GradientBar";
 import { useAccount } from "wagmi";
+import { Goal } from "./Goal";
+import GradientBar from "./components/GradientBar";
+import { ResolvedAttestation } from "./utils/types";
 import {
   EASContractAddress,
-  getAttestationsForAddress,
+  getAttestationsForSchema,
   getENSNames,
 } from "./utils/utils";
-import { EAS } from "@ethereum-attestation-service/eas-sdk";
-import { ResolvedAttestation } from "./utils/types";
-import { AttestationItem } from "./AttestationItem";
 
 const Container = styled.div`
   @media (max-width: 700px) {
@@ -56,7 +56,8 @@ function Home() {
       setAttestations([]);
       setLoading(true);
       if (!address) return;
-      const tmpAttestations = await getAttestationsForAddress(address);
+      // const tmpAttestations = await getAttestationsForAddress(address);
+      const tmpAttestations = await getAttestationsForSchema();
 
       const addresses = new Set<string>();
 
@@ -68,7 +69,7 @@ function Home() {
       let resolvedAttestations: ResolvedAttestation[] = [];
 
       const ensNames = await getENSNames(Array.from(addresses));
-
+      console.log(tmpAttestations);
       tmpAttestations.forEach((att) => {
         if (att.attester.toLowerCase() === address.toLocaleLowerCase()) {
           resolvedAttestations.push({
@@ -98,14 +99,15 @@ function Home() {
   return (
     <Container>
       <GradientBar />
-      {/* <NewConnection>Who you met IRL.</NewConnection> */}
       <NewConnection>Goals</NewConnection>
       <AttestationHolder>
         <WhiteBox>
           {loading && <div>Loading...</div>}
-          {attestations.map((attestation, i) => (
-            <AttestationItem key={i} data={attestation} />
-          ))}
+          {attestations
+            .filter((att) => att.refUID.includes("0x000000000"))
+            .map((attestation) => (
+              <Goal data={attestations} rootAtt={attestation} />
+            ))}
         </WhiteBox>
       </AttestationHolder>
     </Container>
