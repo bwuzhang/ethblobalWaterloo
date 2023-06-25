@@ -1,0 +1,28 @@
+.quest {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+}
+
+.quest-row {
+  display: flex;
+}
+
+.quest-column {
+  flex: 1;
+}
+
+.quest-column h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.quest-column p {
+  margin: 0;
+}
+
+.owner {
+  font-size: 14px;
+}

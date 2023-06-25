@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -17,6 +17,8 @@ export const alchemyApiKey = process.env.REACT_APP_ALCHEMY_API_KEY;
 export const CUSTOM_SCHEMAS = {
   MET_IRL_SCHEMA:
     // "0xc59265615401143689cbfe73046a922c975c99d97e4c248070435b1104b2dea7",
+    "0xc796becc80d9ed6dbcbb9b22faa6429a2889f2144a117dcf9dfcee5951e7d005",
+  MOTIVATE_ME_SCHEMA:
     "0xc796becc80d9ed6dbcbb9b22faa6429a2889f2144a117dcf9dfcee5951e7d005",
 };
 
@@ -74,8 +76,15 @@ export async function getENSName(address: string) {
     `https://eth-mainnet.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`,
     "mainnet"
   );
+  console.log('debug ens error', provider, address);
   return await provider.lookupAddress(address);
 }
+
+const config: AxiosRequestConfig<any> = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
 export async function getAttestation(uid: string): Promise<Attestation | null> {
   const response = await axios.post<AttestationResult>(
@@ -89,11 +98,7 @@ export async function getAttestation(uid: string): Promise<Attestation | null> {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestation;
@@ -125,11 +130,7 @@ export async function getAttestationsForAddress(address: string) {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestations;
@@ -150,11 +151,7 @@ export async function getENSNames(addresses: string[]) {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.ensNames;
@@ -174,11 +171,7 @@ export async function getAttestationsForSchema() {
         },
       },
     },
-    {
-      headers: {
-        "content-type": "application/json",
-      },
-    }
+    config
   );
 
   return response.data.data.attestations;

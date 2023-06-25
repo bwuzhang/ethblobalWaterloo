@@ -1,4 +1,5 @@
 import { Header } from "./components/Header";
+import React from 'react';
 import { Outlet } from "react-router";
 import { createClient, WagmiConfig } from "wagmi";
 import * as chains from "wagmi/chains";
