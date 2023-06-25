@@ -100,7 +100,7 @@ export function Goal({ data, rootAtt }: Props) {
     indentLevel: number,
     isChild: boolean
   ) => {
-    const indentStyle = { marginLeft: `${indentLevel * 20}px` }; // Indent child elements
+    const indentStyle = { marginLeft: `${indentLevel * 50}px` }; // Indent child elements
     // console.log(JSON.parse(attestation.decodedDataJson));
     return (
       <Container
