@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { MyDatePicker } from '../MyDatePicker';
 import { ethers } from 'ethers';
-import { usePrepareContractWrite, useContractWrite } from 'wagmi';
+import React, { useState } from 'react';
+import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+import { MyDatePicker } from '../MyDatePicker';
 import './CreateQuest.css';
 
 function CreateQuest() {
@@ -14,7 +14,7 @@ function CreateQuest() {
   const uint256Value = ethers.BigNumber.from(timestamp);
   const etherAmount = ethers.utils.parseEther('' + bounty);
 
-  const goalContractAddress = '0x7864c0d253f63430fdF28d75aa91af42AC9F2Ff3';
+  const goalContractAddress = '0xE4D16D89c1D8C92Af698F370c74982b381BD0FAE';
   const { config } = usePrepareContractWrite({
     address: goalContractAddress,
     abi: [
