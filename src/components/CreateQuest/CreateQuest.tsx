@@ -12,6 +12,7 @@ function CreateQuest() {
 
   const timestamp = Math.floor(deadline.getTime() / 1000);
   const uint256Value = ethers.BigNumber.from(timestamp);
+  const etherAmount = ethers.utils.parseEther('' + bounty);
 
   const goalContractAddress = '0x7864c0d253f63430fdF28d75aa91af42AC9F2Ff3';
   const { config } = usePrepareContractWrite({
@@ -26,10 +27,12 @@ function CreateQuest() {
       },
     ],
     functionName: 'createGoal',
-    args: [title, uint256Value]
+    args: [title, uint256Value],
+    // value: etherAmount,
   });
-  const { write } = useContractWrite(config);
 
+  const { write } = useContractWrite(config);
+  
   const handleTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setTitle(event.target.value);
   };
@@ -48,6 +51,7 @@ function CreateQuest() {
 
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
+    console.log('submitting', title, bounty, deadline.toString(), etherAmount.toString(), uint256Value.toNumber());
     write?.();
   };
 
