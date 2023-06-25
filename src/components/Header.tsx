@@ -131,8 +131,18 @@ export function Header() {
   let menuItems: MenuItemType[] = [
     {
       title: "All Quests",
-      onClick: () => navigate("/"),
-      path: "/",
+      onClick: () => navigate("/all-quests"),
+      path: "/all-quests",
+    },
+    {
+      title: "Create Quest",
+      onClick: () => navigate("/create-quest"),
+      path: "/create-quest",
+    },
+    {
+      title: "Attestations",
+      onClick: () => navigate("/connections"),
+      path: "/connections",
     },
   ];
 
@@ -147,7 +157,7 @@ export function Header() {
         <Container>
           <MainNavigation>
             <LogoContainer>
-              <Logo onClick={() => navigate("/")}>
+              <Logo onClick={() => navigate("/all-quests")}>
                 <LogoImage src="/logo.png" />
                 <LogoText>GoalQuest</LogoText>
               </Logo>
