@@ -18,6 +18,8 @@ export const CUSTOM_SCHEMAS = {
   MET_IRL_SCHEMA:
     // "0xc59265615401143689cbfe73046a922c975c99d97e4c248070435b1104b2dea7",
     "0xc796becc80d9ed6dbcbb9b22faa6429a2889f2144a117dcf9dfcee5951e7d005",
+  MOTIVATE_ME_SCHEMA:
+    "0xc796becc80d9ed6dbcbb9b22faa6429a2889f2144a117dcf9dfcee5951e7d005",
 };
 
 dayjs.extend(duration);
@@ -66,7 +68,6 @@ export async function getAddressForENS(name: string) {
     `https://eth-mainnet.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`,
     "mainnet"
   );
-  console.log('debug ens error', provider, name);
   return await provider.resolveName(name);
 }
 
@@ -136,24 +137,24 @@ export async function getAttestationsForAddress(address: string) {
 }
 
 export async function getENSNames(addresses: string[]) {
-  // const response = await axios.post<EnsNamesResult>(
-  //   "https://sepolia.easscan.org/graphql",
-  //   {
-  //     query:
-  //       "query Query($where: EnsNameWhereInput) {\n  ensNames(where: $where) {\n    id\n    name\n  }\n}",
-  //     variables: {
-  //       where: {
-  //         id: {
-  //           in: addresses,
-  //           mode: "insensitive",
-  //         },
-  //       },
-  //     },
-  //   },
-  //   config
-  // );
+  const response = await axios.post<EnsNamesResult>(
+    "https://sepolia.easscan.org/graphql",
+    {
+      query:
+        "query Query($where: EnsNameWhereInput) {\n  ensNames(where: $where) {\n    id\n    name\n  }\n}",
+      variables: {
+        where: {
+          id: {
+            in: addresses,
+            mode: "insensitive",
+          },
+        },
+      },
+    },
+    config
+  );
 
-  // return response.data.data.ensNames;
+  return response.data.data.ensNames;
 }
 
 export async function getAttestationsForSchema() {

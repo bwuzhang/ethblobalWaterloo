@@ -162,7 +162,6 @@ function Home() {
   const [address, setAddress] = useState("");
   const { data: signer } = useSigner();
   const [attesting, setAttesting] = useState(false);
-  const [ensResolvedAddress, setEnsResolvedAddress] = useState("Dakh.eth");
   const [finalAttestation, setFinalAttestation] = useState<Attestation | null>(
     null
   );
@@ -174,23 +173,6 @@ function Home() {
       setAddress(addressParam);
     }
   }, []);
-
-  useEffect(() => {
-    async function checkENS() {
-      if (address.includes(".eth")) {
-        const tmpAddress = await getAddressForENS(address);
-        if (tmpAddress) {
-          setEnsResolvedAddress(tmpAddress);
-        } else {
-          setEnsResolvedAddress("");
-        }
-      } else {
-        setEnsResolvedAddress("");
-      }
-    }
-
-    checkENS();
-  }, [address]);
 
   return (
     <Container>
@@ -207,7 +189,6 @@ function Home() {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
-            {ensResolvedAddress && <EnsLogo src={"/ens-logo.png"} />}
           </InputContainer>
           <MetButton
             onClick={async () => {
@@ -216,9 +197,11 @@ function Home() {
               } else {
                 setAttesting(true);
                 try {
-                  const schemaEncoder = new SchemaEncoder("bool metIRL");
+                  const schemaEncoder = new SchemaEncoder("string goal,string comment,uint8 max_supporters");
                   const encoded = schemaEncoder.encodeData([
-                    { name: "metIRL", type: "bool", value: true },
+                    { name: "goal", type: "string", value: 'workout twice a week for a month' },
+                    { name: "comment", type: "string", value: address },
+                    { name: "max_supporters", type: "uint8", value: 2 },
                   ]);
 
                   invariant(signer, "signer must be defined");
@@ -226,15 +209,13 @@ function Home() {
 
                   const tx = await eas.attest({
                     data: {
-                      recipient: ensResolvedAddress
-                        ? ensResolvedAddress
-                        : address,
+                      recipient: '0xE63d79409783478BcC42ba261576333C2805a802',
                       data: encoded,
                       refUID: ethers.constants.HashZero,
                       revocable: true,
                       expirationTime: 0,
                     },
-                    schema: CUSTOM_SCHEMAS.MET_IRL_SCHEMA,
+                    schema: CUSTOM_SCHEMAS.MOTIVATE_ME_SCHEMA,
                   });
 
                   const uid = await tx.wait();
@@ -259,13 +240,6 @@ function Home() {
               ? "Make attestation"
               : "Connect wallet"}
           </MetButton>
-
-          {status === "connected" && (
-            <>
-              <SubText to={"/qr"}>Show my QR code</SubText>
-              <SubText to={"/connections"}>Connections</SubText>
-            </>
-          )}
         </WhiteBox>
       ) : (
         <>
@@ -275,10 +249,6 @@ function Home() {
             <IconHolder>
               <Identicon address={finalAttestation.recipient} size={100} />
             </IconHolder>
-            <FinalAddress>
-              {ensResolvedAddress ? ensResolvedAddress : address}
-            </FinalAddress>
-
             <Time>
               {dayjs.unix(finalAttestation.time).format(timeFormatString)}
             </Time>
