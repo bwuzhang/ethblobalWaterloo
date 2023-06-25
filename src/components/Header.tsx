@@ -1,12 +1,11 @@
-import styled from "styled-components";
+import { FaQrcode } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
-import { theme } from "../utils/theme";
-import { CustomConnectButton } from "./ui/CustomConnectKit";
-import { activeChainConfig } from "../utils/utils";
+import styled from "styled-components";
 import invariant from "tiny-invariant";
 import { useAccount } from "wagmi";
-import { FaQrcode } from "react-icons/fa";
-import React from "react";
+import { theme } from "../utils/theme";
+import { activeChainConfig } from "../utils/utils";
+import { CustomConnectButton } from "./ui/CustomConnectKit";
 
 const Outer = styled.div`
   font-family: "Nunito", sans-serif;
@@ -131,7 +130,7 @@ export function Header() {
 
   let menuItems: MenuItemType[] = [
     {
-      title: "Make connection",
+      title: "All Quests",
       onClick: () => navigate("/"),
       path: "/",
     },
@@ -150,18 +149,12 @@ export function Header() {
             <LogoContainer>
               <Logo onClick={() => navigate("/")}>
                 <LogoImage src="/logo.png" />
-                <LogoText>METIRL</LogoText>
+                <LogoText>GoalQuest</LogoText>
               </Logo>
             </LogoContainer>
             <Left>
               <Links>
-                {address && (
-                  <QR
-                    size={20}
-                    color={"#BD9EFF"}
-                    onClick={() => navigate("/qr")}
-                  />
-                )}
+                {/* {address} */}
                 {menuItems.map((menuItem, i) => (
                   <MenuItem
                     key={i}
