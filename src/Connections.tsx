@@ -101,7 +101,7 @@ function Home() {
   return (
     <Container>
       <GradientBar />
-      <NewConnection>Goals</NewConnection>
+      <NewConnection>Quests</NewConnection>
       <AttestationHolder>
         <WhiteBox>
           {loading && <div>Loading...</div>}
