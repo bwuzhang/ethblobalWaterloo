@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import QuestInvitationRequest from '../QuestInvitationRequest/QuestInvitationRequest';
 import './Quest.css';
 
-interface QuestProps {
+export interface QuestProps {
   title: string;
   owner?: string;
   bounty: number;

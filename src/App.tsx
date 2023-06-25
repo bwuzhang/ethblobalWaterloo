@@ -8,6 +8,7 @@ import CreateQuest from "./components/CreateQuest/CreateQuest";
 import AllQuests from "./components/Quests/AllQuests";
 import MyQuests from "./components/Quests/MyQuests";
 import MyQuestInvitations from "./components/QuestInvitations/MyQuestInvitations";
+import QuestDetails from "./components/QuestDetails/QuestDetails";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <CreateQuest />,
       },
       {
+        path: "/create-quest",
+        element: <CreateQuest />,
+      },
+      {
         path: "/quests",
         element: <AllQuests />,
       },
@@ -45,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/incoming-invitations",
         element: <MyQuestInvitations />,
+      },
+      {
+        path: "/quest-details",
+        element: <QuestDetails />,
       },
     ],
   },

@@ -4,7 +4,9 @@ import { useAccount } from "wagmi";
 import { Identicon } from "./components/Identicon";
 import { ResolvedAttestation } from "./utils/types";
 import { timeFormatString } from "./utils/utils";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import CreateAttestation from "./components/CreateAttestation/CreateAttestation";
 
 const Container = styled.div`
   border-radius: 25px;
@@ -71,11 +73,25 @@ const Check = styled.div``;
 type Props = {
   data: ResolvedAttestation[];
   rootAtt: ResolvedAttestation;
+  onClick?: () => void;
 };
 
 export function Goal({ data, rootAtt }: Props) {
   const { address } = useAccount();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
   if (!address) return null;
+
+  
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
 
   // Function to render single attestation
   // Function to render single attestation
@@ -89,11 +105,7 @@ export function Goal({ data, rootAtt }: Props) {
     return (
       <Container
         style={indentStyle}
-        onClick={() => {
-          window.open(
-            `https://sepolia.easscan.org/attestation/view/${attestation.id}`
-          );
-        }}
+        onClick={() => handleOpenModal()}
       >
         <IconHolder>
           <Identicon address={attestation.attester} size={60} />
@@ -110,6 +122,12 @@ export function Goal({ data, rootAtt }: Props) {
           </NameHolder>
         )}
         <Time>{dayjs.unix(attestation.time).format(timeFormatString)}</Time>
+        {showModal && (
+            <CreateAttestation 
+              id={attestation.id}
+              onRequestClose={handleCloseModal}
+            />
+          )}
       </Container>
     );
   };
