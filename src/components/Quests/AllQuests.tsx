@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useContractRead } from "wagmi";
 import { Goal } from "../../Goal";
 import Quests from "./Quests";
-import React from "react";
-
 
 const questsData = [
   {
@@ -57,7 +55,8 @@ interface QuestData {
 type GoalResponse = Goal[];
 
 function AllQuests() {
-  const goalContractAddress = "0x7864c0d253f63430fdF28d75aa91af42AC9F2Ff3";
+  // const goalContractAddress = "0x7864c0d253f63430fdF28d75aa91af42AC9F2Ff3";
+  const goalContractAddress = "0xE4D16D89c1D8C92Af698F370c74982b381BD0FAE";
   const [quests, setQuests] = useState<QuestData[]>([]);
   const { data, isError, isLoading } = useContractRead({
     address: goalContractAddress,

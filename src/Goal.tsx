@@ -145,7 +145,7 @@ export function Goal({ data, rootAtt }: Props) {
 
     // Render each child attestation (and its children)
     for (const child of children) {
-      elements.push(renderAttestationWithChildren(child, level + 1));
+      elements.push(renderAttestationWithChildren(child,  1));
     }
 
     return <>{elements}</>; // Wrap the array of elements in a React fragment
