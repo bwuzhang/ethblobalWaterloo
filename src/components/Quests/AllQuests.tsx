@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useContractRead } from "wagmi";
 import { Goal } from "../../Goal";
 import Quests from "./Quests";
+import React from "react";
+
 
 const questsData = [
   {

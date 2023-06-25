@@ -6,6 +6,7 @@ import { useAccount } from "wagmi";
 import { theme } from "../utils/theme";
 import { activeChainConfig } from "../utils/utils";
 import { CustomConnectButton } from "./ui/CustomConnectKit";
+import React from "react";
 
 const Outer = styled.div`
   font-family: "Nunito", sans-serif;
