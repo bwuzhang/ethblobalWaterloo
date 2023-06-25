@@ -130,19 +130,25 @@ export function Header() {
 
   let menuItems: MenuItemType[] = [
     {
-      title: "All Quests",
-      onClick: () => navigate("/all-quests"),
-      path: "/all-quests",
-    },
-    {
       title: "Create Quest",
       onClick: () => navigate("/create-quest"),
       path: "/create-quest",
     },
+
     {
       title: "Attestations",
       onClick: () => navigate("/connections"),
       path: "/connections",
+    },
+    {
+      title: "Requests",
+      onClick: () => navigate("/incoming-invitations"),
+      path: "/incoming-invitations",
+    },
+    {
+      title: "All Quests",
+      onClick: () => navigate("/all-quests"),
+      path: "/all-quests",
     },
   ];
 

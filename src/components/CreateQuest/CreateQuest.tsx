@@ -59,7 +59,7 @@ function CreateQuest() {
     <form onSubmit={handleSubmit} className="create-quest-form">
       <div className="form-row">
         <label className="form-label">
-          Title:
+          Quest Title:
           <input
             type="text"
             value={title}
